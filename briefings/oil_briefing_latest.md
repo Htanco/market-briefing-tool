@@ -1,0 +1,5 @@
+Crude fell hard this week, down $5.57 (-6.6%) to $78.94, a sharp move against a backdrop of trailing 8-week vol already elevated at 8.7%. Inventories rose 17.4mm bbl, a big swing versus the recent 8-week average (-2.4mm), leaving a surprise of nearly +19.9mm bbl - a notable build against the recent draw trend.
+
+The price action is a bit at odds with the headline flow. Reports of Hormuz-related incidents (Iran/UAE tensions, tanker strike, oil slick) would normally point toward a risk premium and higher prices, not a 6.6% drop. It's possible the market is discounting escalation risk as more noise than supply threat, or that the inventory build and broader demand concerns are dominating price direction this week - the equity market commentary (Sensex/Nifty weighed down by crude) suggests sentiment is jumpy but not clearly bullish for oil. Given the mismatch between geopolitical headlines and the price move, I'd avoid over-attributing the drop to any single headline; the inventory surprise is the cleaner, better-supported explanation for downward pressure.
+
+Watch: next week's inventory data to see if the build was a one-off or the start of a trend reversal.
