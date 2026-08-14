@@ -33,11 +33,14 @@ jobs:
           CURRENTS_API_KEY: ${{ secrets.CURRENTS_API_KEY }}
         run: python main.py
 
+      - name: Build docs/ archive index
+        run: python build_index.py
+
       - name: Commit and push generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add briefings/
+          git add briefings/ docs/
           if git diff --cached --quiet; then
             echo "No new files to commit."
           else
