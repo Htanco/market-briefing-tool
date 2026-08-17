@@ -5,19 +5,21 @@ from datetime import datetime, timezone
 import anthropic
 from dotenv import load_dotenv
 
-from config import ACTIVE_COMMODITY, BRIEFINGS_DIR, DATA_DIR
+from config import ACTIVE_COMMODITY, commodity_briefings_dir, commodity_data_dir, get_commodity_config
 
 load_dotenv()
 
 MODEL = "claude-sonnet-5"
 MAX_TOKENS = 2048
 
-SYSTEM_PROMPT = """You are a junior commodities analyst writing a short internal note on \
-the week's oil market for your team. Write in that register: plain, precise, no hype, like \
+
+def _system_prompt(display_name):
+    return f"""You are a junior commodities analyst writing a short internal note on \
+the week's {display_name} market for your team. Write in that register: plain, precise, no hype, like \
 a quick note passed along before a meeting, not a polished public research report.
 
 You will be given a structured JSON summary of this week's price move, inventory data, and \
-a rough volatility measure, plus a short list of recent oil-related headlines (which may be \
+a rough volatility measure, plus a short list of recent {display_name}-related headlines (which may be \
 empty).
 
 Rules:
@@ -55,9 +57,11 @@ def _build_user_message(analysis, news):
     )
 
 
-def generate_briefing(skip_llm=False):
-    analysis = _load_json(DATA_DIR / f"{ACTIVE_COMMODITY}_analysis_latest.json", "analysis")
-    news = _load_json(DATA_DIR / f"{ACTIVE_COMMODITY}_news_latest.json", "news")
+def generate_briefing(skip_llm=False, commodity=None):
+    commodity = commodity or ACTIVE_COMMODITY
+    data_dir = commodity_data_dir(commodity)
+    analysis = _load_json(data_dir / "analysis_latest.json", "analysis")
+    news = _load_json(data_dir / "news_latest.json", "news")
 
     if skip_llm:
         return (
@@ -67,13 +71,14 @@ def generate_briefing(skip_llm=False):
             f"{json.dumps(news.get('headlines', []), indent=2)}"
         )
 
+    display_name = get_commodity_config(commodity)["display_name"]
     client = anthropic.Anthropic()
     user_message = _build_user_message(analysis, news)
 
     response = client.messages.create(
         model=MODEL,
         max_tokens=MAX_TOKENS,
-        system=SYSTEM_PROMPT,
+        system=_system_prompt(display_name),
         messages=[{"role": "user", "content": user_message}],
     )
 
@@ -87,12 +92,14 @@ def generate_briefing(skip_llm=False):
     return text.strip()
 
 
-def save_briefing(text):
-    BRIEFINGS_DIR.mkdir(parents=True, exist_ok=True)
+def save_briefing(text, commodity=None):
+    commodity = commodity or ACTIVE_COMMODITY
+    briefings_dir = commodity_briefings_dir(commodity)
+    briefings_dir.mkdir(parents=True, exist_ok=True)
     date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    dated_path = BRIEFINGS_DIR / f"{ACTIVE_COMMODITY}_briefing_{date_str}.md"
-    latest_path = BRIEFINGS_DIR / f"{ACTIVE_COMMODITY}_briefing_latest.md"
+    dated_path = briefings_dir / f"{date_str}.md"
+    latest_path = briefings_dir / "latest.md"
 
     with open(dated_path, "w") as f:
         f.write(text)

@@ -1,7 +1,7 @@
 import json
 import statistics
 
-from config import ACTIVE_COMMODITY, DATA_DIR
+from config import ACTIVE_COMMODITY, commodity_data_dir
 
 TRAILING_WEEKS = 8
 
@@ -10,8 +10,9 @@ class AnalysisError(Exception):
     pass
 
 
-def _load_latest_data():
-    latest_path = DATA_DIR / f"{ACTIVE_COMMODITY}_latest.json"
+def _load_latest_data(commodity=None):
+    commodity = commodity or ACTIVE_COMMODITY
+    latest_path = commodity_data_dir(commodity) / "latest.json"
     if not latest_path.exists():
         raise AnalysisError(f"No data file at {latest_path} — run fetch_data.py first")
     with open(latest_path) as f:
@@ -27,6 +28,7 @@ def _week_over_week_changes(values):
 
 
 def analyze_commodity_data(raw_data):
+    commodity = raw_data["commodity"]
     price_values = _values(raw_data["price_series"])
     stocks_values = _values(raw_data["stocks_series"])
 
@@ -60,7 +62,7 @@ def analyze_commodity_data(raw_data):
     volatility_stdev_pct = statistics.stdev(trailing_pct_changes)
 
     return {
-        "commodity": ACTIVE_COMMODITY,
+        "commodity": commodity,
         "week_ending": week_ending,
         "price": {
             "latest": round(latest_price, 2),
@@ -89,8 +91,10 @@ def analyze_commodity_data(raw_data):
 
 
 def save_analysis(analysis):
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    latest_path = DATA_DIR / f"{ACTIVE_COMMODITY}_analysis_latest.json"
+    commodity = analysis["commodity"]
+    data_dir = commodity_data_dir(commodity)
+    data_dir.mkdir(parents=True, exist_ok=True)
+    latest_path = data_dir / "analysis_latest.json"
     with open(latest_path, "w") as f:
         json.dump(analysis, f, indent=2)
     return latest_path

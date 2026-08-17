@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 
-from config import ACTIVE_COMMODITY, DATA_DIR, get_commodity_config
+from config import ACTIVE_COMMODITY, commodity_data_dir, get_commodity_config
 from http_retry import get_with_retry
 
 load_dotenv()
@@ -22,13 +22,14 @@ def _relevant(article, keyword_terms):
     return any(term.lower() in title for term in keyword_terms)
 
 
-def fetch_headlines():
+def fetch_headlines(commodity=None):
+    commodity = commodity or ACTIVE_COMMODITY
     api_key = os.environ.get("CURRENTS_API_KEY")
     if not api_key:
         raise NewsFetchError("CURRENTS_API_KEY not found in environment (check your .env file)")
 
-    commodity = get_commodity_config()
-    keywords = commodity["news_keywords"]
+    commodity_cfg = get_commodity_config(commodity)
+    keywords = commodity_cfg["news_keywords"]
     keyword_terms = [term.strip() for term in keywords.split(" OR ")]
 
     params = {
@@ -60,18 +61,20 @@ def fetch_headlines():
     ]
 
     return {
-        "commodity": ACTIVE_COMMODITY,
+        "commodity": commodity,
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "headlines": headlines,
     }
 
 
 def save_headlines(payload):
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    commodity = payload["commodity"]
+    data_dir = commodity_data_dir(commodity)
+    data_dir.mkdir(parents=True, exist_ok=True)
     fetch_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    dated_path = DATA_DIR / f"{ACTIVE_COMMODITY}_news_{fetch_date}.json"
-    latest_path = DATA_DIR / f"{ACTIVE_COMMODITY}_news_latest.json"
+    dated_path = data_dir / f"news_{fetch_date}.json"
+    latest_path = data_dir / "news_latest.json"
 
     with open(dated_path, "w") as f:
         json.dump(payload, f, indent=2)

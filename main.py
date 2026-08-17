@@ -2,15 +2,19 @@ import argparse
 import sys
 
 from analyze import AnalysisError, analyze_commodity_data, save_analysis
+from config import ACTIVE_COMMODITY, COMMODITIES, get_commodity_config
 from fetch_data import EIAFetchError, fetch_commodity_data, save_commodity_data
 from generate_briefing import BriefingGenerationError, generate_briefing, save_briefing
 from news import NewsFetchError, fetch_headlines, save_headlines
 
 
-def main(skip_llm=False):
-    print("[1/4] Fetching EIA price & inventory data...")
+def main(skip_llm=False, commodity=None):
+    commodity = commodity or ACTIVE_COMMODITY
+    display_name = get_commodity_config(commodity)["display_name"]
+
+    print(f"[1/4] Fetching EIA price & inventory data ({display_name})...")
     try:
-        raw_data = fetch_commodity_data()
+        raw_data = fetch_commodity_data(commodity)
         dated_path, latest_path = save_commodity_data(raw_data)
     except EIAFetchError as exc:
         print(f"Data fetch failed: {exc}")
@@ -29,9 +33,9 @@ def main(skip_llm=False):
           f"inventory surprise {analysis['inventory']['surprise_vs_recent_avg']} "
           f"{analysis['inventory']['unit']}")
 
-    print("[3/4] Fetching oil/energy headlines...")
+    print(f"[3/4] Fetching {display_name} headlines...")
     try:
-        news = fetch_headlines()
+        news = fetch_headlines(commodity)
         save_headlines(news)
     except NewsFetchError as exc:
         print(f"News fetch failed: {exc}")
@@ -40,8 +44,8 @@ def main(skip_llm=False):
 
     print(f"[4/4] Generating briefing{' (--skip-llm)' if skip_llm else ''}...")
     try:
-        briefing_text = generate_briefing(skip_llm=skip_llm)
-        dated_path, latest_path = save_briefing(briefing_text)
+        briefing_text = generate_briefing(skip_llm=skip_llm, commodity=commodity)
+        dated_path, latest_path = save_briefing(briefing_text, commodity=commodity)
     except BriefingGenerationError as exc:
         print(f"Briefing generation failed: {exc}")
         return 1
@@ -58,5 +62,11 @@ if __name__ == "__main__":
         action="store_true",
         help="Skip the Anthropic API call and write a placeholder briefing instead",
     )
+    parser.add_argument(
+        "--commodity",
+        choices=list(COMMODITIES.keys()),
+        default=ACTIVE_COMMODITY,
+        help="Which commodity to run the pipeline for",
+    )
     args = parser.parse_args()
-    sys.exit(main(skip_llm=args.skip_llm))
+    sys.exit(main(skip_llm=args.skip_llm, commodity=args.commodity))

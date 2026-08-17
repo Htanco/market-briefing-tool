@@ -1,0 +1,5 @@
+Henry Hub added 4 cents this week, settling at $2.66, up 1.5% w/w. Modest move, but worth noting against the backdrop of a smaller-than-usual storage build: inventories rose 36 Bcf, well below the 53.9 Bcf trailing 8-week average, a -17.9 Bcf surprise on a self-relative basis. That's the second straight week of below-trend builds, which is likely providing some support to price even as we're still mid-summer with storage at a comfortable 3,153 Bcf. Volatility remains elevated at 5.67% (8-week stdev of weekly returns), so the modest headline move masks some choppier day-to-day trading underneath.
+
+Headlines this week were thin and mostly tangential — nothing on weather, LNG feedgas, or production that would explain the storage undershoot directly. The Bucks County item on Amazon's gas generator permitting is more of a long-term demand-side data point (power demand growth) than a near-term price driver, and we wouldn't lean on it for this week's move.
+
+Watch item: keep an eye on next week's storage report to see if the smaller builds are becoming a pattern (tightening balances) or just noise around a still-comfortable inventory level.

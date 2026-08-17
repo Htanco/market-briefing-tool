@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 
-from config import ACTIVE_COMMODITY, DATA_DIR, get_commodity_config
+from config import ACTIVE_COMMODITY, commodity_data_dir, get_commodity_config
 from http_retry import get_with_retry
 
 load_dotenv()
@@ -52,42 +52,45 @@ def _fetch_series(route, series_id, api_key):
     return points
 
 
-def fetch_commodity_data():
+def fetch_commodity_data(commodity=None):
+    commodity = commodity or ACTIVE_COMMODITY
     api_key = os.environ.get("EIA_API_KEY")
     if not api_key:
         raise EIAFetchError("EIA_API_KEY not found in environment (check your .env file)")
 
-    commodity = get_commodity_config()
+    commodity_cfg = get_commodity_config(commodity)
 
     price_points = _fetch_series(
-        commodity["eia_price_route"], commodity["eia_price_series"], api_key
+        commodity_cfg["eia_price_route"], commodity_cfg["eia_price_series"], api_key
     )
     stocks_points = _fetch_series(
-        commodity["eia_stocks_route"], commodity["eia_stocks_series"], api_key
+        commodity_cfg["eia_stocks_route"], commodity_cfg["eia_stocks_series"], api_key
     )
 
     return {
-        "commodity": ACTIVE_COMMODITY,
+        "commodity": commodity,
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "price_series": {
-            "series_id": commodity["eia_price_series"],
-            "unit": "$/BBL",
+            "series_id": commodity_cfg["eia_price_series"],
+            "unit": commodity_cfg["price_unit"],
             "data": price_points,
         },
         "stocks_series": {
-            "series_id": commodity["eia_stocks_series"],
-            "unit": "thousand barrels",
+            "series_id": commodity_cfg["eia_stocks_series"],
+            "unit": commodity_cfg["stocks_unit"],
             "data": stocks_points,
         },
     }
 
 
 def save_commodity_data(payload):
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    commodity = payload["commodity"]
+    data_dir = commodity_data_dir(commodity)
+    data_dir.mkdir(parents=True, exist_ok=True)
     fetch_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    dated_path = DATA_DIR / f"{ACTIVE_COMMODITY}_{fetch_date}.json"
-    latest_path = DATA_DIR / f"{ACTIVE_COMMODITY}_latest.json"
+    dated_path = data_dir / f"{fetch_date}.json"
+    latest_path = data_dir / "latest.json"
 
     with open(dated_path, "w") as f:
         json.dump(payload, f, indent=2)
