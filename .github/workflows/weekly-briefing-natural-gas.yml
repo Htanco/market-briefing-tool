@@ -1,15 +1,15 @@
-name: Weekly Oil Briefing
+name: Weekly Natural Gas Briefing
 
 on:
   schedule:
-    - cron: '0 19 * * 3'
+    - cron: '10 19 * * 3'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: weekly-briefing-oil
+  group: weekly-briefing-natural-gas
 
 jobs:
   run-briefing:
@@ -31,7 +31,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
           CURRENTS_API_KEY: ${{ secrets.CURRENTS_API_KEY }}
-        run: python main.py --commodity oil
+        run: python main.py --commodity natural_gas
 
       - name: Build docs/ archive index
         run: python build_index.py
