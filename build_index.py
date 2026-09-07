@@ -1,4 +1,5 @@
 import html
+import json
 import re
 
 from config import BRIEFINGS_DIR, COMMODITIES, PROJECT_ROOT, get_commodity_config
@@ -19,6 +20,24 @@ PAGE_STYLE = """
 """
 
 
+def _price_direction(meta_path):
+    """Up/down/flat arrow for the week's price move, or '' if unknown.
+
+    Read from the <date>.meta.json sidecar written at generation time.
+    build_index never re-derives this: historical price data lives under
+    data/, which is gitignored and absent for past weeks.
+    """
+    try:
+        pct = json.loads(meta_path.read_text())["price_change_pct"]
+    except (FileNotFoundError, ValueError, KeyError, TypeError):
+        return ""
+    if pct > 0:
+        return "📈"
+    if pct < 0:
+        return "📉"
+    return "➡️"          # exactly flat
+
+
 def _text_to_html_paragraphs(text):
     paragraphs = re.split(r"\n\s*\n", text.strip())
     html_paragraphs = []
@@ -28,19 +47,20 @@ def _text_to_html_paragraphs(text):
     return "\n".join(html_paragraphs)
 
 
-def _briefing_page_html(commodity, date_str, body_text):
+def _briefing_page_html(commodity, date_str, body_text, indicator=""):
     display_name = get_commodity_config(commodity)["display_name"]
     body_html = _text_to_html_paragraphs(body_text)
+    heading = f"{html.escape(display_name)} Briefing — {date_str}"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>{html.escape(display_name)} Briefing — {date_str}</title>
+<title>{heading}</title>
 <style>{PAGE_STYLE}</style>
 </head>
 <body>
 <p><a href="../../index.html">&larr; Back to archive</a></p>
-<h1>{html.escape(display_name)} Briefing — {date_str}</h1>
+<h1>{heading}{f" {indicator}" if indicator else ""}</h1>
 {body_html}
 </body>
 </html>
@@ -52,8 +72,9 @@ def _index_html(sections):
     for commodity, display_name, dated_entries in sections:
         if dated_entries:
             items = "\n".join(
-                f'    <li><a href="briefings/{commodity}/{date_str}.html">{date_str}</a></li>'
-                for date_str, _ in dated_entries
+                f'    <li><a href="briefings/{commodity}/{date_str}.html">{date_str}</a>'
+                f'{f" {indicator}" if indicator else ""}</li>'
+                for date_str, _, indicator in dated_entries
             )
         else:
             items = "    <li>No briefings yet.</li>"
@@ -99,13 +120,16 @@ def build_index():
                     continue
                 date_str = match.group(1)
                 html_name = f"{date_str}.html"
+                indicator = _price_direction(
+                    commodity_briefings_src_dir / f"{date_str}.meta.json"
+                )
 
                 body_text = md_path.read_text()
                 (commodity_docs_dir / html_name).write_text(
-                    _briefing_page_html(commodity, date_str, body_text)
+                    _briefing_page_html(commodity, date_str, body_text, indicator)
                 )
 
-                dated_entries.append((date_str, html_name))
+                dated_entries.append((date_str, html_name, indicator))
 
         dated_entries.sort(key=lambda entry: entry[0], reverse=True)
         sections.append((commodity, display_name, dated_entries))

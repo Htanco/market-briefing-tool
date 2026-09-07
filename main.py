@@ -60,7 +60,14 @@ def main(skip_llm=False, commodity=None):
     print(f"[4/4] Generating briefing{' (--skip-llm)' if skip_llm else ''}...")
     try:
         briefing_text = generate_briefing(skip_llm=skip_llm, commodity=commodity)
-        dated_path, latest_path = save_briefing(briefing_text, commodity=commodity)
+        dated_path, latest_path = save_briefing(
+            briefing_text,
+            commodity=commodity,
+            meta={
+                "price_change_pct": analysis["price"]["change_pct"],
+                "week_ending": analysis["week_ending"],
+            },
+        )
     except BriefingGenerationError as exc:
         print(f"Briefing generation failed: {exc}")
         return 1

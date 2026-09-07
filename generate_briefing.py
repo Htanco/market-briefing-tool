@@ -117,7 +117,7 @@ def generate_briefing(skip_llm=False, commodity=None):
     return text.strip()
 
 
-def save_briefing(text, commodity=None):
+def save_briefing(text, commodity=None, meta=None):
     commodity = commodity or ACTIVE_COMMODITY
     briefings_dir = commodity_briefings_dir(commodity)
     briefings_dir.mkdir(parents=True, exist_ok=True)
@@ -130,6 +130,10 @@ def save_briefing(text, commodity=None):
         f.write(text)
     with open(latest_path, "w") as f:
         f.write(text)
+
+    if meta is not None:
+        with open(briefings_dir / f"{date_str}.meta.json", "w") as f:
+            json.dump(meta, f, indent=2)
 
     return dated_path, latest_path
 
