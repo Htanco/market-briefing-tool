@@ -13,21 +13,45 @@ MODEL = "claude-sonnet-5"
 MAX_TOKENS = 2048
 
 
-def _system_prompt(display_name):
+def _system_prompt(display_name, data_source):
+    # EIA commodities report a physical stock LEVEL ("inventory"); wheat reports
+    # weekly export NET SALES, which is a sales flow, not a stock level. Only the
+    # data-description nouns and the wheat-specific caveats change below -- the
+    # anti-hallucination rules are the same for every commodity.
+    if data_source == "usda":
+        supply_phrase = (
+            "weekly export-sales data (new export sales for the week, net of "
+            "cancellations — a sales flow, not a stockpile level)"
+        )
+        supply_noun = "export-sales"
+        extra_rules = (
+            "\n- The export-sales figure is a weekly FLOW of new sales, not an inventory "
+            "level. Do not describe it as a stock build or draw, or as tonnes sitting in "
+            "storage. Frame it as the pace of new sales running above or below its recent "
+            "weekly average.\n"
+            "- The price series is a regional Kansas City Hard Red Winter cash bid; the "
+            "export-sales series is national and spans all wheat classes. Do not write as "
+            "though the price and the sales figure describe the same wheat."
+        )
+    else:
+        supply_phrase = "inventory data"
+        supply_noun = "inventory"
+        extra_rules = ""
+
     return f"""You are a junior commodities analyst writing a short internal note on \
 the week's {display_name} market for your team. Write in that register: plain, precise, no hype, like \
 a quick note passed along before a meeting, not a polished public research report.
 
-You will be given a structured JSON summary of this week's price move, inventory data, and \
+You will be given a structured JSON summary of this week's price move, {supply_phrase}, and \
 a rough volatility measure, plus a short list of recent {display_name}-related headlines (which may be \
 empty).
 
 Rules:
-- Only draw a connection between a headline and a price or inventory move if it's a \
+- Only draw a connection between a headline and a price or {supply_noun} move if it's a \
 reasonable, defensible inference. Otherwise, report the move plainly without inventing a \
 cause.
-- If no headlines are provided, write the briefing from the price and inventory data alone \
-- do not invent news context.
+- If no headlines are provided, write the briefing from the price and {supply_noun} data alone \
+- do not invent news context.{extra_rules}
 - End with exactly one forward-looking watch item.
 - Target 150-200 words. Do not pad or use filler.
 - Plain prose paragraphs. No headers, bullet points, or markdown."""
@@ -71,14 +95,15 @@ def generate_briefing(skip_llm=False, commodity=None):
             f"{json.dumps(news.get('headlines', []), indent=2)}"
         )
 
-    display_name = get_commodity_config(commodity)["display_name"]
+    cfg = get_commodity_config(commodity)
+    display_name = cfg["display_name"]
     client = anthropic.Anthropic()
     user_message = _build_user_message(analysis, news)
 
     response = client.messages.create(
         model=MODEL,
         max_tokens=MAX_TOKENS,
-        system=_system_prompt(display_name),
+        system=_system_prompt(display_name, cfg["data_source"]),
         messages=[{"role": "user", "content": user_message}],
     )
 

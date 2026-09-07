@@ -3,20 +3,28 @@ import sys
 
 from analyze import AnalysisError, analyze_commodity_data, save_analysis
 from config import ACTIVE_COMMODITY, COMMODITIES, get_commodity_config
-from fetch_data import EIAFetchError, fetch_commodity_data, save_commodity_data
+from fetch_data import EIAFetchError, USDAFetchError, fetch_commodity_data, save_commodity_data
 from generate_briefing import BriefingGenerationError, generate_briefing, save_briefing
 from news import NewsFetchError, fetch_headlines, save_headlines
 
 
+SOURCE_LABELS = {
+    "eia": ("EIA", "inventory"),
+    "usda": ("USDA", "export-sales"),
+}
+
+
 def main(skip_llm=False, commodity=None):
     commodity = commodity or ACTIVE_COMMODITY
-    display_name = get_commodity_config(commodity)["display_name"]
+    commodity_cfg = get_commodity_config(commodity)
+    display_name = commodity_cfg["display_name"]
+    source_label, supply_label = SOURCE_LABELS[commodity_cfg["data_source"]]
 
-    print(f"[1/4] Fetching EIA price & inventory data ({display_name})...")
+    print(f"[1/4] Fetching {source_label} price & {supply_label} data ({display_name})...")
     try:
         raw_data = fetch_commodity_data(commodity)
         dated_path, latest_path = save_commodity_data(raw_data)
-    except EIAFetchError as exc:
+    except (EIAFetchError, USDAFetchError) as exc:
         print(f"Data fetch failed: {exc}")
         return 1
     print(f"      -> {dated_path}")
@@ -28,10 +36,17 @@ def main(skip_llm=False, commodity=None):
     except AnalysisError as exc:
         print(f"Analysis failed: {exc}")
         return 1
+    if "export_sales" in analysis:
+        es = analysis["export_sales"]
+        supply_summary = (
+            f"export-sales pace {es['surprise_vs_recent_avg']:+,} {es['unit']} "
+            f"vs 8-wk avg (sales week {es['sales_week_ending']})"
+        )
+    else:
+        inv = analysis["inventory"]
+        supply_summary = f"inventory surprise {inv['surprise_vs_recent_avg']} {inv['unit']}"
     print(f"      week ending {analysis['week_ending']}: "
-          f"price {analysis['price']['change_pct']}%, "
-          f"inventory surprise {analysis['inventory']['surprise_vs_recent_avg']} "
-          f"{analysis['inventory']['unit']}")
+          f"price {analysis['price']['change_pct']}%, {supply_summary}")
 
     print(f"[3/4] Fetching {display_name} headlines...")
     try:

@@ -27,7 +27,7 @@ def _status_sequence_side_effect(status_codes):
     order, and prints what each attempt got."""
     call_log = []
 
-    def side_effect(url, params=None, timeout=None):
+    def side_effect(url, params=None, timeout=None, **kwargs):
         attempt_num = len(call_log) + 1
         status = status_codes[attempt_num - 1]
         call_log.append(status)

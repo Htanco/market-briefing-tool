@@ -3,13 +3,17 @@ import time
 import requests
 
 
-def get_with_retry(url, params, error_cls, resource_label, timeout=15, retries=3, base_delay=2):
+def get_with_retry(url, params, error_cls, resource_label, timeout=15, retries=3, base_delay=2,
+                   auth=None, headers=None):
     """GET url with params, retrying transient failures with exponential backoff.
 
     Retries on network-level failures and 5xx responses only (base_delay,
     base_delay*2, base_delay*4, ... between attempts). A 2xx or 4xx response
     is returned immediately without retrying — a 4xx means the request itself
     is wrong (bad key, bad params) and retrying won't change that.
+
+    `auth` and `headers` are passed straight through to requests.get (e.g. an
+    (key, "") tuple for HTTP Basic auth). Callers that omit them are unaffected.
 
     Raises error_cls if every attempt fails, with the attempt count and the
     last failure reason in the message.
@@ -19,7 +23,7 @@ def get_with_retry(url, params, error_cls, resource_label, timeout=15, retries=3
 
     for attempt in range(1, total_attempts + 1):
         try:
-            response = requests.get(url, params=params, timeout=timeout)
+            response = requests.get(url, params=params, timeout=timeout, auth=auth, headers=headers)
         except requests.RequestException as exc:
             last_error_detail = f"network error: {exc}"
         else:
