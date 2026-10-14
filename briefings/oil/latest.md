@@ -1,9 +1,7 @@
-WTI closed the week at $98.07, up $4.50 (+4.8%) from $93.57. That's a sharp move and consistent with the Mideast-flow headlines referencing Hormuz vessel attacks — a geopolitical risk premium is the most plausible driver here, though we can't quantify how much of the $4.50 is risk premium vs. other flow. Worth noting the "oil falls" headline and "oil fuels inflation worries" piece both suggest a choppy week with directional swings before settling higher.
+WTI rallied hard this week, up 4.81% to $98.07 from $93.57. That's a big move even against an already-elevated vol backdrop (8-week stdev of weekly % changes at 6.21%, so this print is within range but on the high side). Headlines point to a plausible driver: Houthi threats against Saudi energy infrastructure and broader Middle East/Russia supply disruption chatter are consistent with a geopolitical risk premium getting priced in rather than a demand story.
 
-Inventories drew down 3.19mm bbls, versus an 8-week average build of +2.54mm — a swing of roughly -5.7mm vs. trend. That's a meaningful draw-side surprise and would normally be read as supportive on its own, reinforcing rather than explaining the price pop.
+Inventories support the tightening narrative - stocks drew down 3.19mm bbls versus an 8-week average build of ~2.54mm, a surprise of -5.73mm on the self-relative measure. That's a meaningful swing from the recent trend and lines up with the "inventories plunge" headline, though a single week isn't enough to call a trend reversal.
 
-Trailing 8-week vol sits at 6.21% weekly stdev, elevated and consistent with a market trading headline-to-headline (Hormuz, regulatory rollback chatter, methane rule changes) rather than on fundamentals alone.
+Net: price and inventory data are both consistent with the supply-disruption headlines this week, which is a cleaner read-through than we usually get. No contradictions to flag.
 
-Regulatory headlines (EPA rollbacks, methane rule relaxation) are more medium-term supply-cost stories and don't explain this week's move, but worth flagging for the pipeline.
-
-Watch: any escalation or de-escalation signal out of the Strait of Hormuz — that's likely the swing factor for next week's price action.
+Watch item: confirm whether the draw was driven by actual physical flow disruption (exports/imports data) or just precautionary buying/refinery behavior ahead of further Middle East escalation headlines - that distinction will matter for whether this move holds or fades next week.
