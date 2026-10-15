@@ -1,7 +1,7 @@
-KC HRW cash basically flat this week, $8.18 vs $8.20 prior, down 0.24%. Nothing directional in the move itself - well within the recent vol band (8-wk stdev of weekly changes running ~4.2%).
+KC HRW cash bid ticked up to $8.08/bu, up $0.07 (0.8%) on the week, in line with the recent vol profile (~4.3% weekly stdev) — not a standout move either direction. Intraday headlines show choppy two-way trade (early gains fading, then green screens), consistent with a market without strong directional conviction this week.
 
-Export sales data (week ending 10/1, national, all wheat classes) came in strong: 451.6k MT net sales vs the 305.1k 8-week average, a surprise of about +146.5k MT. That's a decent pace pickup versus wheat's own recent run-rate, not a comparison to trade estimates, and it's not a stocks number - just faster new bookings than the recent average. Worth noting this is the broader wheat export tape, not the KC HRW cash market specifically, so don't read it as direct confirmation of the price action.
+On the export side, net sales for the week ending Oct 1 came in at 451,562 tons, well above the trailing 8-week average of ~305,070 tons — a surprise of about +146,500 tons. That's a national, all-classes figure, so it doesn't map directly onto the KC HRW cash move, but it does point to export demand running ahead of its recent pace.
 
-Headlines this week are mostly noise for our purposes - a disease-resistance fungus study, Euronext wheat firming on a weak euro (demand-side support for EU exporters, not a US KC HRW driver), and a couple of generic "marginal strength/weakness" Thursday notes. None of it explains the US price move cleanly, so I'm not forcing a narrative there.
+The Pakistan headlines (flood-damaged wheat, flour hoarding crackdown) are domestic flour/supply-chain stories and don't have a clear read-through to US export sales or KC cash pricing — flagging them for awareness, not drawing a causal line.
 
-Watch: next week's ESR release to see if the sales pace above average holds or reverts toward the 8-week mean.
+Watch item: next week's ESR release to see if the sales pace above-average holds or reverts toward the 8-week mean, which would help clarify whether this week's strength is a trend shift or a one-off.
