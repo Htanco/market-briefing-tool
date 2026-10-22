@@ -1,7 +1,7 @@
-KC HRW cash bid ticked up to $8.08/bu, up $0.07 (0.8%) on the week, in line with the recent vol profile (~4.3% weekly stdev) — not a standout move either direction. Intraday headlines show choppy two-way trade (early gains fading, then green screens), consistent with a market without strong directional conviction this week.
+Quick note on KC HRW this week: cash bid fell to $7.61/bu from $7.99, down 4.8% on the week. That's a sizable move against the recent vol backdrop (8-week stdev of weekly changes running 1.66%), so this is well outside a typical weekly swing — worth flagging as a real directional move, not noise.
 
-On the export side, net sales for the week ending Oct 1 came in at 451,562 tons, well above the trailing 8-week average of ~305,070 tons — a surprise of about +146,500 tons. That's a national, all-classes figure, so it doesn't map directly onto the KC HRW cash move, but it does point to export demand running ahead of its recent pace.
+Export sales (all-wheat classes, week ending 10/15) came in at 239,627 tonnes, below the trailing 8-week average of ~320,305 tonnes — a shortfall of about 81k tonnes. Pace of new bookings is cooling relative to its recent run rate, though one soft week isn't yet a trend. Given the lag between the sales week and the price week, this isn't a clean explanation for the price drop, and the sales figure is national/all-classes while the price is a regional HRW cash bid, so treat them as two separate data points rather than cause-and-effect.
 
-The Pakistan headlines (flood-damaged wheat, flour hoarding crackdown) are domestic flour/supply-chain stories and don't have a clear read-through to US export sales or KC cash pricing — flagging them for awareness, not drawing a causal line.
+Headlines this week are thin — nothing on HRW fundamentals specifically (one note Wheat is "holding lower side of unchanged" intraday, consistent with the soft tone, but not news-driven). No fresh demand or policy catalyst identified.
 
-Watch item: next week's ESR release to see if the sales pace above-average holds or reverts toward the 8-week mean, which would help clarify whether this week's strength is a trend shift or a one-off.
+Watch: next week's export sales report to see if the booking pace stabilizes or extends the recent slowdown.
