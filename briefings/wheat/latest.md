@@ -1,7 +1,9 @@
-Quick note on KC HRW this week: cash bid fell to $7.61/bu from $7.99, down 4.8% on the week. That's a sizable move against the recent vol backdrop (8-week stdev of weekly changes running 1.66%), so this is well outside a typical weekly swing — worth flagging as a real directional move, not noise.
+Quick wheat note, week ending 10/29.
 
-Export sales (all-wheat classes, week ending 10/15) came in at 239,627 tonnes, below the trailing 8-week average of ~320,305 tonnes — a shortfall of about 81k tonnes. Pace of new bookings is cooling relative to its recent run rate, though one soft week isn't yet a trend. Given the lag between the sales week and the price week, this isn't a clean explanation for the price drop, and the sales figure is national/all-classes while the price is a regional HRW cash bid, so treat them as two separate data points rather than cause-and-effect.
+KC HRW cash bid fell to $7.35/bu from $7.59, down 3.2% on the week, a bigger move than the recent trend (8-week vol running ~1.5%/week). So this was a sharper-than-usual drop, not noise.
 
-Headlines this week are thin — nothing on HRW fundamentals specifically (one note Wheat is "holding lower side of unchanged" intraday, consistent with the soft tone, but not news-driven). No fresh demand or policy catalyst identified.
+Export sales data (national, all wheat classes, week ending 10/22) came in strong: net sales of ~850k tonnes vs an 8-week average of ~300k, a sizable upside surprise in sales pace. Headlines flag China making its first US wheat inquiry since the Trump-Xi summit, which lines up plausibly with the export strength, though the sales report predates the China headline timing-wise so treat that link as circumstantial, not confirmed.
 
-Watch: next week's export sales report to see if the booking pace stabilizes or extends the recent slowdown.
+Worth noting the disconnect: export sales data point to firm demand, but the KC cash price moved lower over the same stretch. These are different things — a national all-classes sales flow vs a regional HRW cash bid — so don't read the strong sales print as support for the price move; they're telling different stories this week.
+
+Watch: confirm whether China follows through with an actual purchase, not just an inquiry, which would be the next real test of demand.
