@@ -1,9 +1,7 @@
-Quick wheat note, week ending 10/29.
+Quick note on KC HRW this week.
 
-KC HRW cash bid fell to $7.35/bu from $7.59, down 3.2% on the week, a bigger move than the recent trend (8-week vol running ~1.5%/week). So this was a sharper-than-usual drop, not noise.
+Cash bid firmed to $7.41/bu, up $0.06 (+0.9%) on the week, in line with recent vol (8-week stdev of weekly moves ~1.8%) — not an outsized move. Price action was choppy intraday (gains faded midday mid-week, then a bounce Thursday), consistent with a market without strong directional conviction day to day. The one headline with real macro relevance is the Russian export outlook piece — weaker Russian supply availability is a plausible, defensible tailwind for US wheat prices generally, though it doesn't specifically target KC HRW.
 
-Export sales data (national, all wheat classes, week ending 10/22) came in strong: net sales of ~850k tonnes vs an 8-week average of ~300k, a sizable upside surprise in sales pace. Headlines flag China making its first US wheat inquiry since the Trump-Xi summit, which lines up plausibly with the export strength, though the sales report predates the China headline timing-wise so treat that link as circumstantial, not confirmed.
+On export sales: net sales for the week ending 10/29 came in at 538k tonnes, well above the trailing 8-week average of ~367k tonnes, a pace surprise of about +171k tonnes. That's a national, all-classes figure, so treat it as a demand-pace signal rather than direct confirmation of HRW cash strength. The reported fourfold jump in exports after a ban lift is a separate country-level data point — can't confirm it's driving the US sales pace without more detail.
 
-Worth noting the disconnect: export sales data point to firm demand, but the KC cash price moved lower over the same stretch. These are different things — a national all-classes sales flow vs a regional HRW cash bid — so don't read the strong sales print as support for the price move; they're telling different stories this week.
-
-Watch: confirm whether China follows through with an actual purchase, not just an inquiry, which would be the next real test of demand.
+Watch: next ESR release to see if the stronger sales pace holds or reverts toward the 8-week average.
