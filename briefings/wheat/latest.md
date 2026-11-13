@@ -1,7 +1,7 @@
-Quick note on KC HRW this week.
+KC HRW cash bid eased slightly this week, down $0.05 to $7.32/bu (-0.7%), basically a continuation of the soft tone noted in the Thursday headline. Volatility stayed muted at 1.81% (8-week stdev of weekly changes), so this is a drift lower, not a sharp move.
 
-Cash bid firmed to $7.41/bu, up $0.06 (+0.9%) on the week, in line with recent vol (8-week stdev of weekly moves ~1.8%) — not an outsized move. Price action was choppy intraday (gains faded midday mid-week, then a bounce Thursday), consistent with a market without strong directional conviction day to day. The one headline with real macro relevance is the Russian export outlook piece — weaker Russian supply availability is a plausible, defensible tailwind for US wheat prices generally, though it doesn't specifically target KC HRW.
+Export sales, which cover all wheat classes nationally and lag the price week by about a week (data through 10/29), came in well above pace: 538,028 tons net vs the 8-week average of 367,230 tons, a surprise of roughly +171,000 tons. That's a notably strong week of new bookings relative to recent run-rate, though it doesn't map cleanly onto the KC HRW cash move since the sales figure blends all classes and regions.
 
-On export sales: net sales for the week ending 10/29 came in at 538k tonnes, well above the trailing 8-week average of ~367k tonnes, a pace surprise of about +171k tonnes. That's a national, all-classes figure, so treat it as a demand-pace signal rather than direct confirmation of HRW cash strength. The reported fourfold jump in exports after a ban lift is a separate country-level data point — can't confirm it's driving the US sales pace without more detail.
+Headlines this week are mostly noise for pricing purposes — a new variety story, an Indian diversification push, and a seed-dormancy research piece — none of which offer a clean causal link to either the price dip or the sales pace. Treat the price softness and the sales strength as two separate data points this week rather than a single narrative.
 
-Watch: next ESR release to see if the stronger sales pace holds or reverts toward the 8-week average.
+Watch item: next week's ESR release to see if the stronger export pace holds or reverts toward the 8-week average, which would help clarify whether demand is genuinely picking up.
